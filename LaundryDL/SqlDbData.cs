@@ -10,7 +10,7 @@ namespace LaundryDL
 {
     public class SqlDbData
     {
-        static string connectionString = "Data Source=DESKTOP-8GMKO0I\\SQLEXPRESS01; Initial Catalog=Laundry; Integrated Security=True;";
+        static string connectionString = "Data Source=DESKTOP-TC94IK2\\SQLEXPRESS01; Initial Catalog=Laundry; Integrated Security=True;";
         SqlConnection sqlConnection;
 
         public SqlDbData()

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using LaundryModel;
 using LaundryBL;
-using MailKit.Net.Smtp;
-using MimeKit;
+
 
 namespace Client
 {
@@ -40,8 +39,8 @@ namespace Client
                         userTransactionServices.CreateUser(newUser);
                         Console.WriteLine("Welcome to our shop!");
 
-                        
-                        SendEmail(name, clWeight);
+
+                        SMTP.SendEmail(name, clWeight);
                         break;
 
                     case "2":
@@ -74,41 +73,6 @@ namespace Client
             foreach (var item in users)
             {
                 Console.WriteLine($"name: {item.name}, clWeight: {item.clWeight}, Status: {item.status}");
-            }
-        }
-
-        public static void SendEmail(string userName, string clothingWeight)
-        {
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Laundry Shop", "do-not-reply@laundryshop.com"));
-            message.To.Add(new MailboxAddress("Client", "matthewpascua22@gmail.com")); 
-            message.Subject = "New Laundry Order";
-
-            message.Body = new TextPart("html")
-            {
-                Text = $"<h1>Hi, this is from {userName}!</h1>" +
-                       $"<p>Your laundry weighing {clothingWeight} kg has been processed.</p>" +
-                       "<p>Thank you for choosing us!</p>"
-            };
-
-            using (var client = new SmtpClient())
-            {
-                try
-                {
-                    client.Connect("sandbox.smtp.mailtrap.io", 2525, MailKit.Security.SecureSocketOptions.StartTls);
-                    client.Authenticate("5c428092e1c889", "8046cdc054a257"); 
-
-                    client.Send(message);
-                    Console.WriteLine("Email sent successfully through Mailtrap.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error sending email: {ex.Message}");
-                }
-                finally
-                {
-                    client.Disconnect(true);
-                }
             }
         }
     }
