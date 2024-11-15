@@ -5,7 +5,7 @@ using LaundryBL;
 namespace LaundryAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         UserGetServices _userGetServices;
